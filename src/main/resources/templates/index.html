@@ -6,11 +6,18 @@
         <meta charset="utf-8" />
     </head>
 
-    <body>  
+     
+    
+    <body>   
         <h1>Kysymykset</h1>
         <ul> 
             <li th:each="kysymys: ${kysymykset}">
-                <span th:text="${kysymys.kteksti}">kysymys</span>
+               <a th:href="@{~/kysymykset/{id}(id=${kysymys.id})}"
+                <h3> Kysymys <span th:text="${kysymys.id}">kysymysid</span>: <span th:text="${kysymys.kteksti}">kysymys</span></h3>
+               </a>
+                (kurssi: <span th:text="${kysymys.kurssi}">kysymys</span>, aihe: <span th:text="${kysymys.aihe}">kysymys</span>) 
+               
+                    
                 <button type="button" >Poista</button> 
             </li>   
         </ul>

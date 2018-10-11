@@ -43,9 +43,11 @@ public class Main {
         });
         
         
-        get("/kysymys", (req,res) -> {
+        
+        get("/kysymykset/:id", (req,res) -> {
             HashMap map = new HashMap<>();
-            map.put("kys", kDao.findOne(1));
+            Integer id= Integer.parseInt(req.params(":id"));
+            map.put("kys", kDao.findOne(id));
             map.put("vastaukset", vDao.findAll());
             return new ModelAndView(map,"kysymys");
         }, new ThymeleafTemplateEngine());
