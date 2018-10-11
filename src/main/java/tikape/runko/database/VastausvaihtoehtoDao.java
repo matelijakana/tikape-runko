@@ -23,7 +23,7 @@ public class VastausvaihtoehtoDao implements Dao<Vastausvaihtoehto,Integer>{
     }
 
     @Override
-    public Vastausvaihtoehto findOne(Integer key) throws SQLException {
+    public Vastausvaihtoehto findOne(Integer key) throws Exception {
         Connection connection = database.getConnection();
         PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Vastausvaihtoehto WHERE id = ?");
         stmt.setObject(1, key);
@@ -48,7 +48,7 @@ public class VastausvaihtoehtoDao implements Dao<Vastausvaihtoehto,Integer>{
     }
 
     @Override
-    public List<Vastausvaihtoehto> findAll() throws SQLException {
+    public List<Vastausvaihtoehto> findAll() throws Exception {
 
         Connection connection = database.getConnection();
         PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Vastausvaihtoehto");
@@ -73,7 +73,7 @@ public class VastausvaihtoehtoDao implements Dao<Vastausvaihtoehto,Integer>{
     }
 
     @Override
-    public void delete(Integer key) throws SQLException {
+    public void delete(Integer key) throws Exception {
        Connection conn = database.getConnection();
        PreparedStatement stmt = conn.prepareStatement("DELETE * FROM Vastausvaihtoehto WHERE id = ?");
        stmt.setObject(1,key);
@@ -84,7 +84,7 @@ public class VastausvaihtoehtoDao implements Dao<Vastausvaihtoehto,Integer>{
     }
     
     @Override
-    public Vastausvaihtoehto save(Vastausvaihtoehto vastaus) throws SQLException{
+    public Vastausvaihtoehto save(Vastausvaihtoehto vastaus) throws Exception{
         Connection conn = database.getConnection();
         PreparedStatement stmt = conn.prepareStatement("INSERT INTO Vastausvaihtoehto (vteksti, oikein, kysymys_id) VALUES (?,?,?)");
         stmt.setString(1, vastaus.vteksti);

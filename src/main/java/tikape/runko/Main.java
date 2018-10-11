@@ -1,6 +1,7 @@
 package tikape.runko;
 
 import static com.sun.corba.se.spi.presentation.rmi.StubAdapter.request;
+import java.io.File;
 import java.util.HashMap;
 import spark.ModelAndView;
 import spark.Spark;
@@ -18,9 +19,8 @@ public class Main {
         if (System.getenv("PORT") != null) {
             Spark.port(Integer.valueOf(System.getenv("PORT")));
         }
-        
-        Database database = new Database("jdbc:sqlite:opiskelijat.db");
-        database.init();
+        File tiedosto = new File("db", "opiskelijat.db");
+        Database database = new Database("jdbc:sqlite:" + tiedosto.getAbsolutePath());
 
         KysymysDao kDao = new KysymysDao(database);
         VastausvaihtoehtoDao vDao = new VastausvaihtoehtoDao(database);

@@ -28,7 +28,7 @@ public class KysymysDao implements Dao<Kysymys,Integer>{
     }
 
     @Override
-    public Kysymys findOne(Integer key) throws SQLException {
+    public Kysymys findOne(Integer key) throws Exception {
         Connection connection = database.getConnection();
         PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Kysymys WHERE id = ?");
         stmt.setInt(1, key);
@@ -53,7 +53,7 @@ public class KysymysDao implements Dao<Kysymys,Integer>{
     }
 
     @Override
-    public List<Kysymys> findAll() throws SQLException {
+    public List<Kysymys> findAll() throws Exception {
 
         Connection connection = database.getConnection();
         PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Kysymys");
@@ -79,7 +79,7 @@ public class KysymysDao implements Dao<Kysymys,Integer>{
     }
 
        @Override
-    public void delete(Integer key) throws SQLException {
+    public void delete(Integer key) throws Exception {
        Connection conn = database.getConnection();
        PreparedStatement stmt = conn.prepareStatement("DELETE FROM Kysymys WHERE id = ?");
        stmt.setObject(1,key);
@@ -90,7 +90,7 @@ public class KysymysDao implements Dao<Kysymys,Integer>{
     }
     
     @Override
-    public Kysymys save(Kysymys kysymys) throws SQLException{
+    public Kysymys save(Kysymys kysymys) throws Exception{
         Connection conn = database.getConnection();
         PreparedStatement stmt = conn.prepareStatement("INSERT INTO Kysymys (kurssi, aihe, kteksti) VALUES (?,?,?)");
         stmt.setString(1,kysymys.kurssi);

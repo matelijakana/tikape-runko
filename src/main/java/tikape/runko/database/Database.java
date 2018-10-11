@@ -1,5 +1,6 @@
 package tikape.runko.database;
 
+import java.io.File;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,16 +12,16 @@ public class Database {
     public Database(String databaseAddress) throws ClassNotFoundException {
         this.databaseAddress = databaseAddress;
     }
-
-    public Connection getConnection() throws SQLException {
+    
+    public static Connection getConnection() throws Exception {
         String dbUrl = System.getenv("JDBC_DATABASE_URL");
         if (dbUrl != null && dbUrl.length() > 0) {
-            return DriverManager.getConnection(dbUrl);
+        return DriverManager.getConnection(dbUrl);
         }
-
-        return DriverManager.getConnection(databaseAddress);
-       
+     //muokkaa!!!!!!!
+        return DriverManager.getConnection("jdbc:sqlite:"+"opiskelijat.db");
     }
+
 
     public void init() {
         List<String> lauseet = sqliteLauseet();
