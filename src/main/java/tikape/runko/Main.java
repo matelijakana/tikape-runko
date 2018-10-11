@@ -51,7 +51,6 @@ public class Main {
         
         post("/kysymys", (req,res) -> {
             String vteksti = req.queryParams("vteksti");
-            vDao.save(new Vastausvaihtoehto(1,1,vteksti,false));
             res.redirect("/kysymys");
             return "";
         });
