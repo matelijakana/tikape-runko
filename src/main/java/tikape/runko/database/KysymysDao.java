@@ -103,9 +103,17 @@ public class KysymysDao implements Dao<Kysymys,Integer>{
         st.setString(1, kysymys.kteksti);
         st.setString(2, kysymys.kurssi);
         ResultSet rs = st.executeQuery();
+        boolean hasOne = rs.next();
+        if (!hasOne) {
+            return null;
+        }
+        
         Kysymys k = new Kysymys(rs.getInt("id"), rs.getString("kurssi"),rs.getString("aihe"), rs.getString("kteksti"));
+      
+        
         conn.close();
         return k;
+       
         
     }
     
