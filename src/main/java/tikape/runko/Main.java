@@ -48,7 +48,7 @@ public class Main {
             HashMap map = new HashMap<>();
             Integer id= Integer.parseInt(req.params(":id"));
             map.put("kys", kDao.findOne(id));
-            map.put("vastaukset", vDao.findAll());
+            map.put("vastaukset", vDao.findAllForOneQuestion(id));
             return new ModelAndView(map,"kysymys");
         }, new ThymeleafTemplateEngine());
         
