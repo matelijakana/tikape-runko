@@ -1,0 +1,6 @@
+ id |         kurssi          |       aihe       |                      kteksti                      
+----+-------------------------+------------------+---------------------------------------------------
+  1 | Ohjelmoinnin perusteet  | Muuttujan tyyppi | Mitkä näistä ovat mahdollisia muuttujan tyyppejä?
+  2 | Tietokantojen perusteet | Harjoitustyö 2   | Onko harjoitustyö 2 helppoo ja kivaa?
+(2 rows)
+

@@ -52,11 +52,7 @@ public class Main {
             return new ModelAndView(map,"kysymys");
         }, new ThymeleafTemplateEngine());
         
-        post("/kysymys", (req,res) -> {
-            String vteksti = req.queryParams("vteksti");
-            res.redirect("/kysymys");
-            return "";
-        });
+        
         
         
     }

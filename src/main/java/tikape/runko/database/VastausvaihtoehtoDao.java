@@ -98,9 +98,9 @@ public class VastausvaihtoehtoDao implements Dao<Vastausvaihtoehto,Integer>{
         stmt.executeQuery();
         stmt.close();
         
-        PreparedStatement st = conn.prepareStatement("SELECT * FROM Vastausvaihtoehto WHERE vteksti = ? AND oikein = ?" );
+        PreparedStatement st = conn.prepareStatement("SELECT * FROM Vastausvaihtoehto WHERE vteksti = ?" );
         st.setString(1, vastaus.vteksti);
-        st.setBoolean(2, vastaus.oikein);
+        
         ResultSet rs = st.executeQuery();
         Vastausvaihtoehto v = new Vastausvaihtoehto(rs.getInt("id"), rs.getInt("kysymys_id"),rs.getString("vtektsti"), rs.getBoolean("oikein"));
         conn.close();
