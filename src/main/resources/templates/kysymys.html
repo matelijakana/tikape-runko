@@ -1,0 +1,30 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+        <title>Kysymys</title>
+        <meta charset="utf-8" />  
+    </head>
+                                 
+    <body> 
+        <h4>Kurssi: <span th:text="${kys.kurssi}"></span></h4>
+        <h4>Aihe: <span th:text="${kys.aihe}"></span></h4>
+        <h1>Kysymys: <span th:text="${kys.kteksti}"></span></h1>  
+        
+        <ul> 
+            <li th:each="vastaus: ${vastaukset}">
+                <span th:text="${vastaus.vteksti}">vastaus</span>
+                <button type="button" >Poista</button> 
+            </li>   
+        </ul>
+        
+        <h3>Lisää vastausvaihtoehto</h3>
+        <form method="POST" action="/kysymys">
+            Vastausvaihtoehto:<br/>
+            <input type="text" name="vteksti"/><br/>
+            Oikein/Väärin:<br/>
+            <input type="checkbox" name="oikein" value="Oikein"/><br/>
+            <input type="submit" value="Lisää"/>
+        </form>
+    </body>
+</html>

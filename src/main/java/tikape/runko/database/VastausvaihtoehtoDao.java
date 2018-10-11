@@ -86,15 +86,22 @@ public class VastausvaihtoehtoDao implements Dao<Vastausvaihtoehto,Integer>{
     @Override
     public Vastausvaihtoehto save(Vastausvaihtoehto vastaus) throws SQLException{
         Connection conn = database.getConnection();
-        PreparedStatement stmt = conn.prepareStatement("INSERT INTO Vastausvaihtoehto (id, kysymys_id, vteksti, oikein) VALUES (?,?,?,?)");
-        stmt.setObject(1, vastaus.id);
-        stmt.setObject(2,vastaus.kysymys_id);
-        stmt.setObject(3, vastaus.vteksti);
-        stmt.setObject(4, vastaus.oikein);
+        PreparedStatement stmt = conn.prepareStatement("INSERT INTO Vastausvaihtoehto (vteksti, oikein, kysymys_id) VALUES (?,?,?)");
+        stmt.setString(1, vastaus.vteksti);
+        stmt.setBoolean(2, vastaus.oikein);
+        stmt.setInt(3,vastaus.kysymys_id);
         stmt.executeQuery();
         stmt.close();
+        
+        PreparedStatement st = conn.prepareStatement("SELECT * FROM Vastausvaihtoehto WHERE vteksti = ? AND oikein = ?" );
+        st.setString(1, vastaus.vteksti);
+        st.setBoolean(2, vastaus.oikein);
+        ResultSet rs = st.executeQuery();
+        Vastausvaihtoehto v = new Vastausvaihtoehto(rs.getInt("id"), rs.getInt("kysymys_id"),rs.getString("vtektsti"), rs.getBoolean("oikein"));
         conn.close();
-        return vastaus;
+      
+        return v;
+        
         
     }
 }

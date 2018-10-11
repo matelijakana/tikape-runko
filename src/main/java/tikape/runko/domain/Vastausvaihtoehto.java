@@ -21,4 +21,16 @@ public class Vastausvaihtoehto {
         this.vteksti = vteksti;
         this.oikein = oikein;
     }
+    
+    public int getKysymys_id() {
+        return kysymys_id;
+    }
+    
+    public int getId() {
+        return id;
+    }
+    
+    public String getVteksti() {
+        return this.vteksti;
+    }
 }

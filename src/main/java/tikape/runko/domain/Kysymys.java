@@ -27,6 +27,10 @@ public class Kysymys {
         return kteksti;
     }
     
+    public Integer getId() {
+        return id;
+    }
+    
  
     
 }

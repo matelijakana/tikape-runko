@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicLong;
 import tikape.runko.domain.Kysymys;
 
 
@@ -20,6 +21,7 @@ import tikape.runko.domain.Kysymys;
  */
 public class KysymysDao implements Dao<Kysymys,Integer>{
      private Database database;
+     private static Integer idCounter = 0;
 
     public KysymysDao(Database database) {
         this.database = database;
@@ -29,7 +31,7 @@ public class KysymysDao implements Dao<Kysymys,Integer>{
     public Kysymys findOne(Integer key) throws SQLException {
         Connection connection = database.getConnection();
         PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Kysymys WHERE id = ?");
-        stmt.setObject(1, key);
+        stmt.setInt(1, key);
 
         ResultSet rs = stmt.executeQuery();
         boolean hasOne = rs.next();
@@ -42,10 +44,9 @@ public class KysymysDao implements Dao<Kysymys,Integer>{
         String aihe = rs.getString("aihe");
         String kteksti = rs.getString("kteksti");
         Kysymys k = new Kysymys(id, kurssi, aihe, kteksti);
-
-
-        rs.close();
+        
         stmt.close();
+        rs.close();
         connection.close();
 
         return k;
@@ -80,7 +81,7 @@ public class KysymysDao implements Dao<Kysymys,Integer>{
        @Override
     public void delete(Integer key) throws SQLException {
        Connection conn = database.getConnection();
-       PreparedStatement stmt = conn.prepareStatement("DELETE * FROM Kysymys WHERE id = ?");
+       PreparedStatement stmt = conn.prepareStatement("DELETE FROM Kysymys WHERE id = ?");
        stmt.setObject(1,key);
        stmt.executeQuery();
        
@@ -91,15 +92,21 @@ public class KysymysDao implements Dao<Kysymys,Integer>{
     @Override
     public Kysymys save(Kysymys kysymys) throws SQLException{
         Connection conn = database.getConnection();
-        PreparedStatement stmt = conn.prepareStatement("INSERT INTO Kysymys (id, kurssi, aihe, kteksti) VALUES (?,?,?,?)");
-        stmt.setObject(1, kysymys.id);
-        stmt.setObject(2,kysymys.kurssi);
-        stmt.setObject(2, kysymys.aihe);
-        stmt.setObject(4, kysymys.kteksti);
-        stmt.executeQuery();
+        PreparedStatement stmt = conn.prepareStatement("INSERT INTO Kysymys (kurssi, aihe, kteksti) VALUES (?,?,?)");
+        stmt.setString(1,kysymys.kurssi);
+        stmt.setString(2, kysymys.aihe);
+        stmt.setString(3, kysymys.kteksti);
+        stmt.executeUpdate();
         stmt.close();
+        
+        PreparedStatement st = conn.prepareStatement("SELECT * FROM Kysymys WHERE kteksti = ? AND kurssi = ?" );
+        st.setString(1, kysymys.kteksti);
+        st.setString(2, kysymys.kurssi);
+        ResultSet rs = st.executeQuery();
+        Kysymys k = new Kysymys(rs.getInt("id"), rs.getString("kurssi"),rs.getString("aihe"), rs.getString("kteksti"));
         conn.close();
-        return kysymys;
+        return k;
         
     }
+    
 }

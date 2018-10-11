@@ -6,21 +6,27 @@
         <meta charset="utf-8" />
     </head>
 
-    <body>  //tästä tulee kysymyslistan pohja//
-        <ul> th:each="kysymys: ${kysymykset}">
+    <body>  
+        <h1>Kysymykset</h1>
+        <ul> 
+            <li th:each="kysymys: ${kysymykset}">
                 <span th:text="${kysymys.kteksti}">kysymys</span>
-                
+                <button type="button" >Poista</button> 
+            </li>   
         </ul>
         
-        <form method="POST" action="/opiskelijat">
+        
+        <h3>Lisää kysymys</h3>
+        <form method="POST" action="/kysymykset">
             Kurssi:<br/>
             <input type="text" name="kurssi"/><br/>
             Aihe:<br/>
             <input type="text" name="aihe"/><br/>
-            Kysymys: </br/>
+            Kysymys:<br/>
             <input type="text" name="kteksti"/><br/>
             <input type="submit" value="Lisää"/>
-</form>
+        </form>
+        
 
     </body>
 </html>
