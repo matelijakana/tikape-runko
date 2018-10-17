@@ -13,9 +13,9 @@ public class Vastausvaihtoehto {
     public Integer id;
     public Integer kysymys_id;
     public String vteksti;
-    public Boolean oikein;
+    public String oikein;
     
-    public Vastausvaihtoehto(Integer id, Integer kysymys_id, String vteksti, Boolean oikein) {
+    public Vastausvaihtoehto(Integer id, Integer kysymys_id, String vteksti, String oikein) {
         this.id = id;
         this.kysymys_id = kysymys_id;
         this.vteksti = vteksti;

@@ -11,19 +11,28 @@
         <h4>Aihe: <span th:text="${kys.aihe}"></span></h4>
         <h1>Kysymys: <span th:text="${kys.kteksti}"></span></h1>  
         
-        <ul> 
+        <form method="POST" th:action="@{~/poistakysymys/{id}(id=${kys.id})}">
+            <input type="hidden" name="poista"/>
+                    <input type="submit" value="Poista kysymys"/>
+                </form>
+        <h3>Vastausvaihtoehdot:</h3> 
+        <ol>
+            
             <li th:each="vastaus: ${vastaukset}">
                 <span th:text="${vastaus.vteksti}">vastaus</span>
-                <button type="button" >Poista</button> 
+                 <form method="POST" th:action="@{~/poistavastaus/{id}(id=${vastaus.id})}">
+                    <input type="hidden" name="kysymys_id" th:value ="${vastaus.kysymys_id}"/>
+                    <input type="submit" value="Poista vastausvaihtoehto"/>
+                </form>
             </li>   
-        </ul>
+        </ol>
         
         <h3>Lisää vastausvaihtoehto</h3>
-        <form method="POST" action="/kysymykset">
+        <form method="POST" th:action="@{~/lisaavastaus/{id}(id=${kys.id})}">
             Vastausvaihtoehto:<br/>
             <input type="text" name="vteksti"/><br/>
-            Oikein/Väärin:<br/>
-            <input type="checkbox" name="oikein" value="Oikein"/><br/>
+            Oikein:<br/>
+            <input type="checkbox" name="oikein" value="1" /><br/>
             <input type="submit" value="Lisää"/>
         </form>
     </body>

@@ -37,7 +37,7 @@ public class VastausvaihtoehtoDao implements Dao<Vastausvaihtoehto,Integer>{
         Integer id = rs.getInt("id");
         Integer kysymys_id = rs.getInt("kysymys_id");
         String vteksti = rs.getString("vteksti");
-        Boolean oikein = rs.getBoolean("oikein");
+        String oikein = rs.getString("oikein");
         Vastausvaihtoehto vastaus = new Vastausvaihtoehto(id,kysymys_id,vteksti,oikein);
 
         rs.close();
@@ -64,7 +64,7 @@ public class VastausvaihtoehtoDao implements Dao<Vastausvaihtoehto,Integer>{
             Integer iidee = rs.getInt("id");
             Integer kysymys_id = rs.getInt("kysymys_id");
             String vteksti = rs.getString("vteksti");
-            Boolean oikein = rs.getBoolean("oikein");
+            String oikein = rs.getString("oikein");
             Vastausvaihtoehto vastaus = new Vastausvaihtoehto(iidee,kysymys_id,vteksti,oikein);
 
             vastaukset.add(vastaus);
@@ -80,9 +80,9 @@ public class VastausvaihtoehtoDao implements Dao<Vastausvaihtoehto,Integer>{
     @Override
     public void delete(Integer key) throws Exception {
        Connection conn = database.getConnection();
-       PreparedStatement stmt = conn.prepareStatement("DELETE * FROM Vastausvaihtoehto WHERE id = ?");
-       stmt.setObject(1,key);
-       stmt.executeQuery();
+       PreparedStatement stmt = conn.prepareStatement("DELETE FROM Vastausvaihtoehto WHERE id = ? ");
+       stmt.setInt(1,key);
+       stmt.executeUpdate();
        
        stmt.close();
        conn.close();
@@ -93,16 +93,16 @@ public class VastausvaihtoehtoDao implements Dao<Vastausvaihtoehto,Integer>{
         Connection conn = database.getConnection();
         PreparedStatement stmt = conn.prepareStatement("INSERT INTO Vastausvaihtoehto (vteksti, oikein, kysymys_id) VALUES (?,?,?)");
         stmt.setString(1, vastaus.vteksti);
-        stmt.setBoolean(2, vastaus.oikein);
+        stmt.setString(2, vastaus.oikein);
         stmt.setInt(3,vastaus.kysymys_id);
-        stmt.executeQuery();
+        stmt.executeUpdate();
         stmt.close();
         
         PreparedStatement st = conn.prepareStatement("SELECT * FROM Vastausvaihtoehto WHERE vteksti = ?" );
         st.setString(1, vastaus.vteksti);
         
         ResultSet rs = st.executeQuery();
-        Vastausvaihtoehto v = new Vastausvaihtoehto(rs.getInt("id"), rs.getInt("kysymys_id"),rs.getString("vtektsti"), rs.getBoolean("oikein"));
+        Vastausvaihtoehto v = new Vastausvaihtoehto(rs.getInt("id"), rs.getInt("kysymys_id"),rs.getString("vteksti"), rs.getString("oikein"));
         conn.close();
       
         return v;

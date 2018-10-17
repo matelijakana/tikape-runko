@@ -61,14 +61,16 @@ public class KysymysDao implements Dao<Kysymys,Integer>{
         ResultSet rs = stmt.executeQuery();
         List<Kysymys> kysymykset = new ArrayList<>();
         while (rs.next()) {
-             Integer id = rs.getInt("id");
+            Integer id = rs.getInt("id");
             String kurssi = rs.getString("kurssi");
             String aihe = rs.getString("aihe");
             String kteksti = rs.getString("kteksti");
+                
             Kysymys k = new Kysymys(id, kurssi, aihe, kteksti);
-
-
             kysymykset.add(k);
+           
+
+
         }
 
         rs.close();
@@ -82,8 +84,8 @@ public class KysymysDao implements Dao<Kysymys,Integer>{
     public void delete(Integer key) throws Exception {
        Connection conn = database.getConnection();
        PreparedStatement stmt = conn.prepareStatement("DELETE FROM Kysymys WHERE id = ?");
-       stmt.setObject(1,key);
-       stmt.executeQuery();
+       stmt.setInt(1,key);
+       stmt.executeUpdate();
        
        stmt.close();
        conn.close();
@@ -96,6 +98,7 @@ public class KysymysDao implements Dao<Kysymys,Integer>{
         stmt.setString(1,kysymys.kurssi);
         stmt.setString(2, kysymys.aihe);
         stmt.setString(3, kysymys.kteksti);
+        
         stmt.executeUpdate();
         stmt.close();
         
