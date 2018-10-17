@@ -1,0 +1,39 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+        <title>Kysymys</title>
+        <meta charset="utf-8" />  
+    </head>
+                                 
+    <body> 
+        <h4>Kurssi: <span th:text="${kys.kurssi}"></span></h4>
+        <h4>Aihe: <span th:text="${kys.aihe}"></span></h4>
+        <h1>Kysymys: <span th:text="${kys.kteksti}"></span></h1>  
+        
+        <form method="POST" th:action="@{~/poistakysymys/{id}(id=${kys.id})}">
+            <input type="hidden" name="poista"/>
+                    <input type="submit" value="Poista kysymys"/>
+                </form>
+        <h3>Vastausvaihtoehdot:</h3> 
+        <ol>
+            
+            <li th:each="vastaus: ${vastaukset}">
+                <span th:text="${vastaus.vteksti}">vastaus</span>
+                 <form method="POST" th:action="@{~/poistavastaus/{id}(id=${vastaus.id})}">
+                    <input type="hidden" name="kysymys_id" th:value ="${vastaus.kysymys_id}"/>
+                    <input type="submit" value="Poista vastausvaihtoehto"/>
+                </form>
+            </li>   
+        </ol>
+        
+        <h3>Lisää vastausvaihtoehto</h3>
+        <form method="POST" th:action="@{~/lisaavastaus/{id}(id=${kys.id})}">
+            Vastausvaihtoehto:<br/>
+            <input type="text" name="vteksti"/><br/>
+            Oikein:<br/>
+            <input type="checkbox" name="oikein" value="1" /><br/>
+            <input type="submit" value="Lisää"/>
+        </form>
+    </body>
+</html>

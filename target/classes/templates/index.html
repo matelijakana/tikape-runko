@@ -1,0 +1,41 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+        <title>Kysymykset</title>
+        <meta charset="utf-8" />
+    </head>
+
+     
+    
+    <body>   
+        <h1>Kysymykset</h1> 
+        <ol> 
+            <li th:each="kysymys: ${kysymykset}">
+               <a th:href="@{~/kysymykset/{id}(id=${kysymys.id})}"
+                <h3> <span th:text="${kysymys.kteksti}">kysymys</span></h3>
+               </a>
+                (kurssi: <span th:text="${kysymys.kurssi}">kysymys</span>, aihe: <span th:text="${kysymys.aihe}">kysymys</span>) 
+                
+               
+                
+                
+            </li>   
+        </ol>
+        
+        
+        
+        <h3>Lisää kysymys</h3>
+        <form method="POST" action="/kysymykset">
+            Kurssi:<br/>
+            <input type="text" name="kurssi"/><br/>
+            Aihe:<br/>
+            <input type="text" name="aihe"/><br/>
+            Kysymys:<br/>
+            <input type="text" name="kteksti"/><br/>
+            <input type="submit" value="Lisää"/>
+        </form>
+        
+
+    </body>
+</html>
