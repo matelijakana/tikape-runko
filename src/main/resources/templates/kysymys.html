@@ -20,6 +20,7 @@
             
             <li th:each="vastaus: ${vastaukset}">
                 <span th:text="${vastaus.vteksti}">vastaus</span>
+                (<span th:text="${vastaus.oikein}"></span>)
                  <form method="POST" th:action="@{~/poistavastaus/{id}(id=${vastaus.id})}">
                     <input type="hidden" name="kysymys_id" th:value ="${vastaus.kysymys_id}"/>
                     <input type="submit" value="Poista vastausvaihtoehto"/>
@@ -31,7 +32,7 @@
         <form method="POST" th:action="@{~/lisaavastaus/{id}(id=${kys.id})}">
             Vastausvaihtoehto:<br/>
             <input type="text" name="vteksti"/><br/>
-            Oikein:<br/>
+            Oikein:
             <input type="checkbox" name="oikein" value="1" /><br/>
             <input type="submit" value="Lisää"/>
         </form>

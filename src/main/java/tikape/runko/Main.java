@@ -13,7 +13,7 @@ import tikape.runko.database.KysymysDao;
 import tikape.runko.database.VastausvaihtoehtoDao;
 import tikape.runko.domain.Kysymys;
 import tikape.runko.domain.Vastausvaihtoehto;
-import spark.template.thymeleaf.ThymeleafTemplateEngine;
+import spark.template.thymeleaf.ThymeleafTemplateEngine; 
 
 public class Main {
 
@@ -54,7 +54,11 @@ public class Main {
        
        post("/lisaavastaus/:id", (req,res) -> {
             Integer id = Integer.parseInt(req.params(":id"));
-            String oikein = "väärin";
+            String oikein = "Oikein";  
+            if (req.queryParams("oikein") == null) {
+              oikein = "Väärin";
+            }
+            
             String vteksti = req.queryParams("vteksti");
             if (!vteksti.equals("")) {
                 vDao.save(new Vastausvaihtoehto(-1, id, vteksti, oikein));
