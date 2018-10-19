@@ -61,7 +61,7 @@ public class Main {
             
             String vteksti = req.queryParams("vteksti");
             if (!vteksti.equals("")) {
-                vDao.save(new Vastausvaihtoehto(-1, id, vteksti, oikein));
+                vDao.save(new Vastausvaihtoehto(-1, kysymys_id, vteksti, oikein));
             };
             res.redirect("/kysymykset/"+kysymys_id);
             return "";
