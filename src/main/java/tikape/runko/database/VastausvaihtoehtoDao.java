@@ -102,6 +102,10 @@ public class VastausvaihtoehtoDao implements Dao<Vastausvaihtoehto,Integer>{
         st.setString(1, vastaus.vteksti);
         
         ResultSet rs = st.executeQuery();
+        boolean hasOne = rs.next();
+        if (!hasOne) {
+            return null;
+        }
         Vastausvaihtoehto v = new Vastausvaihtoehto(rs.getInt("id"), rs.getInt("kysymys_id"),rs.getString("vteksti"), rs.getString("oikein"));
         conn.close();
       

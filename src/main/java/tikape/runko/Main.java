@@ -53,7 +53,7 @@ public class Main {
        });
        
        post("/lisaavastaus/:id", (req,res) -> {
-            Integer id = Integer.parseInt(req.params(":id"));
+            Integer kysymys_id = Integer.parseInt(req.params(":id"));
             String oikein = "Oikein";  
             if (req.queryParams("oikein") == null) {
               oikein = "Väärin";
@@ -63,7 +63,7 @@ public class Main {
             if (!vteksti.equals("")) {
                 vDao.save(new Vastausvaihtoehto(-1, id, vteksti, oikein));
             };
-            res.redirect("/kysymykset/"+id);
+            res.redirect("/kysymykset/"+kysymys_id);
             return "";
         });
        
