@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 import tikape.runko.domain.Kysymys;
+import tikape.runko.domain.Vastausvaihtoehto;
 
 
 /**
@@ -22,7 +23,7 @@ import tikape.runko.domain.Kysymys;
 public class KysymysDao implements Dao<Kysymys,Integer>{
      private Database database;
      private static Integer idCounter = 0;
-
+     
     public KysymysDao(Database database) {
         this.database = database;
     }
@@ -88,6 +89,7 @@ public class KysymysDao implements Dao<Kysymys,Integer>{
        stmt.executeUpdate();
        
        stmt.close();
+    
        conn.close();
     }
     

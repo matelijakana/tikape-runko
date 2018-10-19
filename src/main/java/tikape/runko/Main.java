@@ -2,6 +2,7 @@ package tikape.runko;
 
 import static com.sun.corba.se.spi.presentation.rmi.StubAdapter.request;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 import static jdk.nashorn.internal.objects.NativeFunction.function;
 import spark.ModelAndView;
@@ -47,6 +48,11 @@ public class Main {
         
        post("/poistakysymys/:id", (req,res) -> {
           Integer id = Integer.parseInt(req.params(":id"));
+          
+          ArrayList<Vastausvaihtoehto> vastausvaihtoehdot = vDao.findAllForOneQuestion(id);
+          for (Vastausvaihtoehto v_ehto: vastausvaihtoehdot) {
+              vDao.delete(v_ehto.id);
+          }
           kDao.delete(id);
           res.redirect("/kysymykset"); 
           return ""; 

@@ -52,14 +52,14 @@ public class VastausvaihtoehtoDao implements Dao<Vastausvaihtoehto,Integer>{
         return null;
     }
     
-    public List<Vastausvaihtoehto> findAllForOneQuestion(Integer id) throws Exception {
+    public ArrayList<Vastausvaihtoehto> findAllForOneQuestion(Integer id) throws Exception {
 
         Connection connection = database.getConnection();
         PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Vastausvaihtoehto WHERE kysymys_id=?");
         stmt.setInt(1, id);
 
         ResultSet rs = stmt.executeQuery();
-        List<Vastausvaihtoehto> vastaukset = new ArrayList<>();
+        ArrayList<Vastausvaihtoehto> vastaukset = new ArrayList<>();
         while (rs.next()) {
             Integer iidee = rs.getInt("id");
             Integer kysymys_id = rs.getInt("kysymys_id");
