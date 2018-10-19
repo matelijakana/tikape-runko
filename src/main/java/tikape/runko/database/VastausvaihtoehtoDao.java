@@ -85,7 +85,7 @@ public class VastausvaihtoehtoDao implements Dao<Vastausvaihtoehto,Integer>{
        stmt.executeUpdate();
        
        stmt.close();
-       conn.close();
+       conn.close(); 
     }
     
     @Override
